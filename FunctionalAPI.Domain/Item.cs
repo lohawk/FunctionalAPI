@@ -2,13 +2,11 @@
 
 namespace FunctionalAPI.Domain
 {
-    public class Item
+    public class Item : VersionedItem
     {
         public int Id { get; set; }
         public string Data { get; set; }
         public DateTime ModifiedAt { get; set; }
-
-        public int Version { get; set; }
 
         public Item() { }
 

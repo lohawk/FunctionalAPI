@@ -1,5 +1,8 @@
-﻿using FunctionalAPI.Domain;
+﻿using FunctionalAPI.Core;
+using FunctionalAPI.Domain;
+using SuccincT.Functional;
 using System.Collections.Concurrent;
+using Xunit.Sdk;
 using ItemResult = SuccincT.Options.ValueOrError<FunctionalAPI.Domain.Item, FunctionalAPI.Core.Error>;
 
 namespace FunctionalAPI.Data
@@ -14,36 +17,18 @@ namespace FunctionalAPI.Data
             _backingRepository = backingRepository;
         }
 
-        public ItemResult GetItemById(int id)
-        {
-            if (!_cache.ContainsKey(id))
-            {
-                var backingResult = _backingRepository.GetItemById(id);
-                if (!backingResult.HasValue)
-                    return backingResult;
+        public ItemResult GetItemById(int id) =>
+            _cache.ContainsKey(id)
+                ? ItemResult.WithValue(_cache[id])
+                : _backingRepository.GetItemById(id)
+                .Into(r => r.SideEffectIfSuccess(item => _cache[id] = item));
 
-                _cache[id] = backingResult.Value;
-            }
+        public ItemResult UpdateItem(Item item) =>
+            _backingRepository.UpdateItem(item)
+                .Into(r => r.SideEffectIfSuccess(item => _cache[item.Id] = item));
 
-            return ItemResult.WithValue(_cache[id]);
-        }
-
-        public ItemResult UpdateItem(Item item)
-        {
-            var backingResult = _backingRepository.UpdateItem(item);
-            if (backingResult.HasValue)
-                _cache[item.Id] = backingResult.Value;
-
-            return backingResult;
-        }
-
-        public ItemResult CreateItem(Item item)
-        {
-            var backingResult = _backingRepository.CreateItem(item);
-            if (backingResult.HasValue)
-                _cache[item.Id] = backingResult.Value;
-
-            return backingResult;
-        }
+        public ItemResult CreateItem(Item item) => 
+            _backingRepository.CreateItem(item)
+                .Into(r => r.SideEffectIfSuccess(item => _cache[item.Id] = item));
     }
 }
