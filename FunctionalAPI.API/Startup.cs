@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Muhsin3Categories.Data;
+using FunctionalAPI.Data;
 
-namespace Muhsin3Categories.API
+namespace FunctionalAPI.API
 {
     public class Startup
     {

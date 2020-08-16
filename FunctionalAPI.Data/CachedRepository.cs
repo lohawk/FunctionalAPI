@@ -1,8 +1,8 @@
-﻿using Muhsin3Categories.Domain;
+﻿using FunctionalAPI.Domain;
 using System.Collections.Concurrent;
-using ItemResult = SuccincT.Options.ValueOrError<Muhsin3Categories.Domain.Item, Muhsin3Categories.Core.Error>;
+using ItemResult = SuccincT.Options.ValueOrError<FunctionalAPI.Domain.Item, FunctionalAPI.Core.Error>;
 
-namespace Muhsin3Categories.Data
+namespace FunctionalAPI.Data
 {
     public class CachedRepository : IManageItemState
     {

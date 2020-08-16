@@ -6,16 +6,16 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Muhsin3Categories.API/Muhsin3Categories.API.csproj", "Muhsin3Categories.API/"]
-RUN dotnet restore "Muhsin3Categories.API/Muhsin3Categories.API.csproj"
+COPY ["FunctionalAPI.API/FunctionalAPI.API.csproj", "FunctionalAPI.API/"]
+RUN dotnet restore "FunctionalAPI.API/FunctionalAPI.API.csproj"
 COPY . .
-WORKDIR "/src/Muhsin3Categories.API"
-RUN dotnet build "Muhsin3Categories.API.csproj" -c Release -o /app/build
+WORKDIR "/src/FunctionalAPI.API"
+RUN dotnet build "FunctionalAPI.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Muhsin3Categories.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "FunctionalAPI.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Muhsin3Categories.API.dll"]
+ENTRYPOINT ["dotnet", "FunctionalAPI.API.dll"]

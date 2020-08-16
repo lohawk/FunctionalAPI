@@ -1,15 +1,15 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Muhsin3Categories.Business;
-using Muhsin3Categories.Data;
-using Muhsin3Categories.Core;
-using Muhsin3Categories.Domain;
+using FunctionalAPI.Business;
+using FunctionalAPI.Data;
+using FunctionalAPI.Core;
+using FunctionalAPI.Domain;
 using SuccincT.Functional;
-using ItemResult = SuccincT.Options.ValueOrError<Muhsin3Categories.Domain.Item, Muhsin3Categories.Core.Error>;
+using ItemResult = SuccincT.Options.ValueOrError<FunctionalAPI.Domain.Item, FunctionalAPI.Core.Error>;
 
 
-namespace Muhsin3Categories.API.Controllers
+namespace FunctionalAPI.API.Controllers
 {
     [ApiController]
     [Route("item")]

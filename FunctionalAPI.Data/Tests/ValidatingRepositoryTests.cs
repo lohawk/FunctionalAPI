@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Muhsin3Categories.Data.Tests
+namespace FunctionalAPI.Data.Tests
 {
     public class ValidatingRepositoryTests
     {

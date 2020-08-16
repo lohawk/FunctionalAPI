@@ -1,6 +1,6 @@
-﻿using Muhsin3Categories.Core;
+﻿using FunctionalAPI.Core;
 
-namespace Muhsin3Categories.Business
+namespace FunctionalAPI.Business
 {
     public abstract class BusinessError : Error { }
     public class BusinessInvalidModificationDateError : BusinessError

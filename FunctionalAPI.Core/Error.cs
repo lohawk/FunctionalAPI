@@ -1,4 +1,4 @@
-﻿namespace Muhsin3Categories.Core
+﻿namespace FunctionalAPI.Core
 {
     public abstract class Error
     {

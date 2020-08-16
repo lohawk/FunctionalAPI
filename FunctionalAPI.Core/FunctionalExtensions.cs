@@ -1,7 +1,7 @@
 ﻿using System;
-using ItemResult = SuccincT.Options.ValueOrError<Muhsin3Categories.Domain.Item, Muhsin3Categories.Core.Error>;
+using ItemResult = SuccincT.Options.ValueOrError<FunctionalAPI.Domain.Item, FunctionalAPI.Core.Error>;
 
-namespace Muhsin3Categories.Core
+namespace FunctionalAPI.Core
 {
     public static class FunctionalExtensions
     {

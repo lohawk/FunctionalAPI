@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Muhsin3Categories.Domain
+namespace FunctionalAPI.Domain
 {
     public class Item
     {

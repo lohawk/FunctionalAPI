@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Muhsin3Categories.API
+namespace FunctionalAPI.API
 {
     public class Program
     {

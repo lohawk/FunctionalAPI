@@ -1,10 +1,10 @@
-﻿using Muhsin3Categories.Domain;
+﻿using FunctionalAPI.Domain;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using ItemResult = SuccincT.Options.ValueOrError<Muhsin3Categories.Domain.Item, Muhsin3Categories.Core.Error>;
+using ItemResult = SuccincT.Options.ValueOrError<FunctionalAPI.Domain.Item, FunctionalAPI.Core.Error>;
 
-namespace Muhsin3Categories.Data
+namespace FunctionalAPI.Data
 {
     public class MockDbRepository : IManageItemState
     {

@@ -1,4 +1,4 @@
-﻿namespace Muhsin3Categories.Domain
+﻿namespace FunctionalAPI.Domain
 {
     public abstract class VersionedItem
     {

@@ -1,6 +1,6 @@
-﻿using Muhsin3Categories.Core;
+﻿using FunctionalAPI.Core;
 
-namespace Muhsin3Categories.Data
+namespace FunctionalAPI.Data
 {
     public abstract class RepositoryError : Error { }
     public class RepositoryNotFoundError : RepositoryError

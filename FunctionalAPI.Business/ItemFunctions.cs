@@ -1,10 +1,10 @@
-﻿using Muhsin3Categories.Core;
-using Muhsin3Categories.Domain;
+﻿using FunctionalAPI.Core;
+using FunctionalAPI.Domain;
 using SuccincT.Functional;
 using System;
-using ItemResult = SuccincT.Options.ValueOrError<Muhsin3Categories.Domain.Item, Muhsin3Categories.Core.Error>;
+using ItemResult = SuccincT.Options.ValueOrError<FunctionalAPI.Domain.Item, FunctionalAPI.Core.Error>;
 
-namespace Muhsin3Categories.Business
+namespace FunctionalAPI.Business
 {
     public static class ItemFunctions 
     {
