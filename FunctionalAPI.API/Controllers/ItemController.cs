@@ -41,11 +41,11 @@ namespace FunctionalAPI.API.Controllers
                 // Get the item we want to update
                 _stateService.GetItemById(updatedItem.Id)
                 // Make sure the updateItem is valid
-                .Into(i => i.ExecuteIfSuccess(item => ItemFunctions.ValidateItem(updatedItem, updateTime)))
+                .IfSuccess(item => ItemFunctions.ValidateItem(updatedItem, updateTime))
                 // Update the item using business rules
-                .Into(i => i.ExecuteIfSuccess(item => ItemFunctions.UpdateItem(updatedItem.Data, updateTime, item)))
+                .IfSuccess(item => ItemFunctions.UpdateItem(updatedItem.Data, updateTime, item))
                 // Save the state
-                .Into(i => i.ExecuteIfSuccess(item => _stateService.UpdateItem(item)))
+                .IfSuccess(item => _stateService.UpdateItem(item))
                 // Return the appropriate response
                 .Into(ToResponse);
         }
@@ -59,7 +59,7 @@ namespace FunctionalAPI.API.Controllers
                // Make sure the updateItem is valid
                ItemFunctions.ValidateItem(item, creationTime)
                // Save the state
-               .Into(i => i.ExecuteIfSuccess(item => _stateService.CreateItem(item)))
+               .IfSuccess(item => _stateService.CreateItem(item))
                // Return the appropriate response
                .Into(item => ToResponse(item, 201));
         }

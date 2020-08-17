@@ -28,11 +28,11 @@ namespace FunctionalAPI.Data
                     // Get the item
                     _backingRepository.GetItemById(item.Id)
                     // validate the version
-                    .Into(r => r.ExecuteIfSuccess(oldItem => ValidateOnVersion(oldItem, item))
+                    .IfSuccess(oldItem => ValidateOnVersion(oldItem, item))
                     // example next validator
-                    .Into(r => r.ExecuteIfSuccess(ValidateOnAlwaysTrue))
+                    .IfSuccess(ValidateOnAlwaysTrue)
                     // update the item in the backing repository
-                    .Into(r => r.ExecuteIfSuccess(_backingRepository.UpdateItem)));
+                    .IfSuccess(_backingRepository.UpdateItem);
             }
         }
 
