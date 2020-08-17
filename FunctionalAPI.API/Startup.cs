@@ -9,8 +9,11 @@ namespace FunctionalAPI.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        protected IWebHostEnvironment _env { get; set; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
+            _env = environment;
             Configuration = configuration;
         }
 
@@ -21,14 +24,22 @@ namespace FunctionalAPI.API
         {
             services.AddControllers();
 
+            var dbRepository = _env.EnvironmentName switch
+            {
+                //"PROD" => new SqlDbRepository();
+                _ => new MockDbRepository()
+            };
+
             // Create the repository pipeline
             //   Cached -> Validating -> Versioning -> MockDb
-            services.AddSingleton<IManageItemState>(_ => new CachedRepository(new ValidatingRepository(new VersioningRespository(new MockDbRepository()))));
+            services.AddSingleton<IManageItemState>(_ => new CachedRepository(new ValidatingRepository(new VersioningRespository(dbRepository))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            _env = env;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

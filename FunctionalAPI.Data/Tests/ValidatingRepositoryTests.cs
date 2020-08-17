@@ -15,7 +15,7 @@ namespace FunctionalAPI.Data.Tests
         [Fact]
         public void Version_Validator__Fails_When_Versions_Mismatch()
         {
-            Assert.True(
+            Assert.False(
                 ValidatingRepository.ValidateOnVersion(new Domain.Item() { Version = 1 }, new Domain.Item() { Version = 2 })
                 .HasValue);
         }
