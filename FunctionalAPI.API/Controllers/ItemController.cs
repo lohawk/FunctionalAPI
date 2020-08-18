@@ -7,7 +7,8 @@ using FunctionalAPI.Core;
 using FunctionalAPI.Domain;
 using SuccincT.Functional;
 using ItemResult = SuccincT.Options.ValueOrError<FunctionalAPI.Domain.Item, FunctionalAPI.Core.Error>;
-
+using FunctionalAPI.Domain.Commands;
+using FunctionalAPI.Commands;
 
 namespace FunctionalAPI.API.Controllers
 {
@@ -30,26 +31,32 @@ namespace FunctionalAPI.API.Controllers
             // Get the item by id and return
             _stateService.GetItemById(id).Into(ToResponse);
 
-
         [HttpPut]
         [Route("{id}")]
         public IActionResult UpdateItem(Item updatedItem)
         {
+            // Prepare required data
             var updateTime = DateTime.Now;
-
+            // This is the func for getting the data
+            ItemResult g(int i) => _stateService.GetItemById(i);
+            // This is the func for saving the data
+            ItemResult s(Item i) => _stateService.UpdateItem(i);
+            
             return
-                // Get the item we want to update
-                _stateService.GetItemById(updatedItem.Id)
-                // Make sure the updateItem is valid
-                .IfSuccess(item => ItemFunctions.ValidateItem(updatedItem, updateTime))
-                // Update the item using business rules
-                .IfSuccess(item => ItemFunctions.UpdateItem(updatedItem.Data, updateTime, item))
-                // Save the state
-                .IfSuccess(item => _stateService.UpdateItem(item))
-                // Return the appropriate response
-                .Into(ToResponse);
-        }
-
+            // Validate the incoming state
+            ItemFunctions.ValidateItem(updatedItem)
+            // Create and execute the command based 
+            .IfSuccess(_ => ItemCommandExecutors.Execute(
+                new UpdateItemCommand(
+                    () => g(updatedItem.Id), s,
+                    updatedItem.Data,
+                    updatedItem.ModifiedAt)))
+            // Handle the result of the command
+            .IfSuccess(updatedItem => _stateService.UpdateItem(updatedItem))
+            // Return the appropriate response
+            .Into(ToResponse);
+        }        
+        
         [HttpPost]
         public IActionResult CreateItem(Item item)
         {

@@ -1,15 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SuccincT" Version="4.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FunctionalAPI.Commands\FunctionalAPI.Commands.csproj" />
     <ProjectReference Include="..\FunctionalAPI.Core\FunctionalAPI.Core.csproj" />
     <ProjectReference Include="..\FunctionalAPI.Domain\FunctionalAPI.Domain.csproj" />
   </ItemGroup>

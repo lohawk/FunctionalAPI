@@ -1,11 +1,11 @@
 ﻿using FunctionalAPI.Core;
 using FunctionalAPI.Domain;
-using SuccincT.Functional;
 using System;
 using ItemResult = SuccincT.Options.ValueOrError<FunctionalAPI.Domain.Item, FunctionalAPI.Core.Error>;
 
 namespace FunctionalAPI.Business
 {
+
     public static class ItemFunctions 
     {
         public static ItemResult UpdateItem(string data, DateTime modifiedAt, Item item) =>
@@ -22,7 +22,13 @@ namespace FunctionalAPI.Business
         public static ItemResult ValidateItem(Item item, DateTime modifiedAt) =>
             // Check to make sure the modification date is valid
             ValidateModificationDate(item, modifiedAt)
+            // Check that we have data
+            .IfSuccess(ValidateDataExists)
             // Check to make sure the itemId is valid
+            .IfSuccess(ValidateItemId);
+
+        public static ItemResult ValidateItem(Item item) =>
+            ValidateDataExists(item)
             .IfSuccess(ValidateItemId);
 
         public static ItemResult ValidateItemId(Item item) =>
@@ -30,5 +36,8 @@ namespace FunctionalAPI.Business
 
         public static ItemResult ValidateModificationDate(Item item, DateTime modifiedAt) =>
             modifiedAt >= item.ModifiedAt ? ItemResult.WithValue(item) : ItemResult.WithError(new BusinessInvalidModificationDateError());
+
+        public static ItemResult ValidateDataExists(Item item) =>
+            !string.IsNullOrWhiteSpace(item.Data) ? ItemResult.WithValue(item) : ItemResult.WithError(new BusinessInvalidItemError());
     }
 }
